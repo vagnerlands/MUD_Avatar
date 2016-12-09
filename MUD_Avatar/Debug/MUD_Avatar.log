@@ -1,7 +1,0 @@
-﻿  CSocketHolder.cpp
-c:\users\vagner\documents\visual studio 2015\projects\mud_avatar\mud_avatar\cwinsocket.h(108): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  c:\program files (x86)\windows kits\8.1\include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
-c:\users\vagner\documents\visual studio 2015\projects\mud_avatar\mud_avatar\csocketholder.cpp(36): warning C4800: 'unsigned int': forcing value to bool 'true' or 'false' (performance warning)
-c:\users\vagner\documents\visual studio 2015\projects\mud_avatar\mud_avatar\csocketholder.cpp(80): warning C4101: 'bufSize': unreferenced local variable
-c:\users\vagner\documents\visual studio 2015\projects\mud_avatar\mud_avatar\csocketholder.cpp(79): warning C4101: 'tempBuf': unreferenced local variable
-  MUD_Avatar.vcxproj -> C:\Users\Vagner\Documents\Visual Studio 2015\Projects\MUD_Avatar\Debug\MUD_Avatar.exe
