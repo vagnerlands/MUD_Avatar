@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{6a066205-a21e-4dc4-9cd9-93f074fcb4b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{f75a2f0e-8a8d-479c-a06d-34e9f356b2f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{df6ed6f1-1511-42bb-ab89-06f39ed24209}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application\CCommonTypes.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CEngine.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CSocketHolder.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CWinSocket.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CWinThread.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CCommandLoginClassMenu.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CCommandLoginGenderMenu.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CCommandLoginMenu.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CCommandLoginRaceMenu.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CCommandLoginUserName.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CICommand.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CGameCockpit.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CPerson.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CRoom.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mainWin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CEngine.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CSocketHolder.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CWinSocket.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CWinThread.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\CCommandLoginClassMenu.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\CCommandLoginGenderMenu.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\CCommandLoginMenu.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\CCommandLoginRaceMenu.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\CCommandLoginUserName.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CGameCockpit.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
