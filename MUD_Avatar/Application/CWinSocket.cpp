@@ -7,6 +7,7 @@ CWinSocket::CWinSocket()
 	m_clientSocket = INVALID_SOCKET;
 	m_state = ESOCKETSTATE_LOGIN;
 	clearReadBuffer();
+	m_recycle = false;
 }
 
 CWinSocket::~CWinSocket()
@@ -251,7 +252,7 @@ CWinSocket::CreateCommand()
 string CWinSocket::setState(ESocketState nextState)
 {
 	// return string
-	string retStr = "";
+	CAnsiString retStr = "";
 	// should check validity before accepting
 	m_state = nextState;
 
@@ -264,6 +265,7 @@ string CWinSocket::setState(ESocketState nextState)
 		retStr += "\r\n [2] Start GAME";
 		retStr += "\r\n [3] Leave the game";
 		retStr += "\r\n> Choose: ";
+		retStr.setBackgroundColor(Types::EANSICOLOR_RED);
 		break;
 	case ESOCKETSTATE_CREATE_NEW_CHAR_GENDER:
 		retStr += "\r\nWhat is your gender: ";
@@ -271,6 +273,7 @@ string CWinSocket::setState(ESocketState nextState)
 		retStr += "\r\n [F] Female ";
 		retStr += "\r\n [r] Return to Main Menu \r\n ";
 		retStr += "\r\n > Choose: ";
+		retStr.setBackgroundColor(Types::EANSICOLOR_RED);
 		break;
 	case ESOCKETSTATE_CREATE_NEW_CHAR_CLASS:
 		retStr += "\r\nSelect one of the available classes:";
@@ -280,6 +283,7 @@ string CWinSocket::setState(ESocketState nextState)
 		retStr += "\r\n[4] Ninja";
 		retStr += "\r\n[r] Return to Main Menu \r\n";
 		retStr += "\r\n> Choose: ";
+		retStr.setBackgroundColor(Types::EANSICOLOR_RED);
 		break;
 	case ESOCKETSTATE_CREATE_NEW_CHAR_RACE:
 		retStr += "\r\nWhat will be your race: ";
@@ -289,8 +293,11 @@ string CWinSocket::setState(ESocketState nextState)
 		retStr += "\r\n [4] Dwarf ";
 		retStr += "\r\n [r] Return to Main Menu \r\n";
 		retStr += "\r\n> Choose: ";
+		retStr.setBackgroundColor(Types::EANSICOLOR_RED);
 		break;
 	case ESOCKETSTATE_IN_GAME:
+		retStr.setBold();
+		retStr.setForegroundColor(Types::EANSICOLOR_YELLOW);
 		retStr += "\r\nThe game will start now...\r\n";
 		break;
 	default:
@@ -298,6 +305,6 @@ string CWinSocket::setState(ESocketState nextState)
 		break;
 	}
 
-	return retStr;
+	return retStr.getData();
 }
 

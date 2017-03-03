@@ -101,7 +101,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WIN_;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./Commands;./Logic;./Application;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,7 +134,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WIN_;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,10 +149,14 @@
   <ItemGroup>
     <ClInclude Include="Application\CCommonTypes.h" />
     <ClInclude Include="Application\CEngine.h" />
+    <ClInclude Include="Application\CAnsiString.h" />
     <ClInclude Include="Application\CRoom.h" />
     <ClInclude Include="Application\CSocketHolder.h" />
     <ClInclude Include="Application\CWinSocket.h" />
     <ClInclude Include="Application\CWinThread.h" />
+    <ClInclude Include="Application\ISocket.h" />
+    <ClInclude Include="CClassWarrior.h" />
+    <ClInclude Include="CIClass.h" />
     <ClInclude Include="Commands\CCommandLoginClassMenu.h" />
     <ClInclude Include="Commands\CCommandLoginGenderMenu.h" />
     <ClInclude Include="Commands\CCommandLoginMenu.h" />
@@ -163,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application\CEngine.cpp" />
+    <ClCompile Include="Application\CAnsiString.cpp" />
     <ClCompile Include="Application\CSocketHolder.cpp" />
     <ClCompile Include="Application\CWinSocket.cpp" />
     <ClCompile Include="Application\CWinThread.cpp" />

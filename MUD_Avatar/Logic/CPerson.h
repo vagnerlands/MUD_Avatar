@@ -14,6 +14,7 @@ public:
 		m_isCharacterCreated = isCharacterCreated;
 		m_race = race;
 		m_gender = gender;
+		m_class = ECharacterClass::ECHARACTERCLASS_WARRIOR;
 	}
 
 	string getUser() const
@@ -24,6 +25,16 @@ public:
 	void setUser(string user)
 	{
 		m_user = user;
+	}
+
+	ECharacterClass getClass()
+	{
+		return m_class;
+	}
+
+	void setClass(ECharacterClass charClass)
+	{
+		m_class = charClass;
 	}
 
 	// returns reference of the m_isCharacterCreated - so the 
@@ -38,6 +49,7 @@ public:
 protected:
 	// shall have a pointer to the room location where 
 	CRoom* m_location;
+	ISocket* m_socket;
 	TInt32 m_life;
 	TInt32 m_mana;
 	TInt32 m_strength;
@@ -46,6 +58,7 @@ protected:
 	bool m_isCharacterCreated;
 	ECharacterRace m_race;
 	ECharacterGender m_gender;
+	ECharacterClass m_class;
 
 };
 

@@ -2,10 +2,10 @@
 #define _CICOMMAND_H_
 
 #include <string>
+#include "ISocket.h"
 
 using namespace std;
-// forward declaration of CWinSocket
-class CWinSocket;
+
 class CICommand {
 public:
 	//CICommand();
@@ -15,11 +15,11 @@ public:
 	// set the key - to perform matching later on in the sockets
 	void setKey(string user);
 
-	void setSocket(CWinSocket* socket);
+	void setSocket(ISocket* socket);
 
 protected:
 	string m_socketKey;
-	CWinSocket* m_socket;
+	ISocket* m_socket;
 };
 
 inline void CICommand::setKey(string user)
@@ -28,7 +28,7 @@ inline void CICommand::setKey(string user)
 }
 
 inline void
-CICommand::setSocket(CWinSocket* socket)
+CICommand::setSocket(ISocket* socket)
 {
 	m_socket = socket;
 }

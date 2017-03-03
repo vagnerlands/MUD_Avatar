@@ -27,3 +27,8 @@
 *.exe
 *.out
 *.app
+/MUD_Avatar.VC.db
+/MUD_Avatar.VC.VC.opendb
+/MUD_Avatar/x64/Debug
+/x64/Debug
+/MUD_Avatar/MUD_Avatar.vcxproj.user

@@ -8,7 +8,10 @@ CCommandLoginRaceMenu::CCommandLoginRaceMenu(string menuOption)
 void CCommandLoginRaceMenu::execute()
 {
 	ELoginRaceMenuOption eRes = CGameCockpit::instance()->validateRaceMenu(m_socketKey, m_menuOption);
-	string message = "\r\n";
+	CAnsiString message;
+	message.resetFormat();
+	message += "\r\n";
+	message.setForegroundColor(Types::EANSICOLOR_CYAN);
 	switch (eRes)
 	{
 	case ELOGINRACEMENUOPTION_SELECT_HUMAN:
@@ -33,8 +36,9 @@ void CCommandLoginRaceMenu::execute()
 		break;
 	default:
 		message += "Option is not available!\r\n> Try again: ";
+		message.setBackgroundColor(Types::EANSICOLOR_RED);
 		break;
 	}
 
-	m_socket->write(message.c_str(), message.length());
+	m_socket->write(message.getData().c_str(), message.getData().length());
 }

@@ -65,6 +65,18 @@
     <ClInclude Include="Application\CRoom.h">
       <Filter>Logic</Filter>
     </ClInclude>
+    <ClInclude Include="Application\CAnsiString.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="CIClass.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="CClassWarrior.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ISocket.h">
+      <Filter>Application</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin.cpp">
@@ -99,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="Logic\CGameCockpit.cpp">
       <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CAnsiString.cpp">
+      <Filter>Application</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

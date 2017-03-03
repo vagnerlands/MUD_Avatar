@@ -19,6 +19,8 @@ public:
 	ELoginGenderMenuOption validateGenderMenu(string socketKey, string menuOption);
 	ELoginRaceMenuOption CGameCockpit::validateRaceMenu(string socketKey, string menuOption);
 
+	void setClass(string socketKey, ECharacterClass charClass);
+
 private:
 	CGameCockpit();
 	~CGameCockpit();

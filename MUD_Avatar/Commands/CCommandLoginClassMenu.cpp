@@ -8,10 +8,14 @@ CCommandLoginClassMenu::CCommandLoginClassMenu(string menuOption)
 void CCommandLoginClassMenu::execute()
 {
 	ELoginClassMenuOption eRes = CGameCockpit::instance()->validateClassMenu(m_socketKey, m_menuOption);
-	string message = "\r\n";
+	CAnsiString message;
+	message.resetFormat();
+	message += "\r\n";
+	message.setForegroundColor(Types::EANSICOLOR_CYAN);
 	switch (eRes)
 	{
 	case ELOGINCLASSMENUOPTION_SELECT_WARRIOR:
+		CGameCockpit::instance()->setClass(m_socketKey, ECharacterClass::ECHARACTERCLASS_WARRIOR);
 		message += "\r\nYou're now a Warrior!";
 		message += m_socket->setState(ESOCKETSTATE_CREATE_NEW_CHAR_GENDER);
 		break;
@@ -33,8 +37,9 @@ void CCommandLoginClassMenu::execute()
 		break;
 	default:
 		message += "Option is not available!\r\n> Try again: ";
+		message.setBackgroundColor(Types::EANSICOLOR_RED);
 		break;
 	}
 
-	m_socket->write(message.c_str(), message.length());
+	m_socket->write(message.getData().c_str(), message.getData().length());
 }

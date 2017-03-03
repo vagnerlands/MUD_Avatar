@@ -8,7 +8,10 @@ CCommandLoginMenu::CCommandLoginMenu(string menuOption)
 void CCommandLoginMenu::execute()
 {
 	ELoginMenuOption eRes = CGameCockpit::instance()->validateMenu(m_socketKey, m_menuOption);
-	string message = "\r\n";
+	CAnsiString message;
+	message.resetFormat();
+	message += "\r\n";
+	message.setForegroundColor(Types::EANSICOLOR_CYAN);
 	switch (eRes) 
 	{
 		case ELOGINMENUOPTION_CREATE_NEW_CHARACTER:
@@ -19,14 +22,19 @@ void CCommandLoginMenu::execute()
 			message += m_socket->setState(ESOCKETSTATE_IN_GAME);
 			break;
 		case ELOGINMENUOPTION_LEAVE_GAME:
-			message = "Goodbye...\r\n";
-			m_socket->write(message.c_str(), message.length());
-			m_socket->closeSocket();
+			message += "Goodbye...\r\n";
+			m_socket->write(message.getData().c_str(), message.getData().length());
+			//m_socket->closeSocket();
+			m_socket->recycle();
 			break;
-		default:
+		default:			
 			message += "Option is not available!\r\n> Choose: ";
+			message.setBackgroundColor(Types::EANSICOLOR_RED);
 			break;
 	}
 		
-	m_socket->write(message.c_str(), message.length());
+	if (m_socket != NULL)
+	{
+		m_socket->write(message.getData().c_str(), message.getData().length());
+	}
 }

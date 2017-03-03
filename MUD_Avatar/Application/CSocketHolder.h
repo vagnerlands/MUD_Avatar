@@ -10,6 +10,8 @@
 #include "CCommonTypes.h"
 #include "CWinThread.h"
 #include "CCommandLoginUserName.h"
+#include "CAnsiString.h"
+#include "ISocket.h"
 
 
 // Need to link with Ws2_32.lib
@@ -22,7 +24,7 @@ public:
 	CSocketHolder();
 	~CSocketHolder();
 
-	void addSocket(string user, CWinSocket* userSocket);
+	void addSocket(string user, ISocket* userSocket);
 	void onConnectionEvent();
 	bool dropSocket(string user);
 
@@ -38,7 +40,7 @@ private:
 	// socket database - all client sockets shall be placed here
 	// Key == client IP
 	// Value == CWinSocket* object, including handle of the connection
-	unordered_map<string, CWinSocket*> m_sockedDB;
+	unordered_map<string, ISocket*> m_sockedDB;
 
 	list<string> m_condemedSockets;
 

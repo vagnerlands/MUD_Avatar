@@ -8,7 +8,10 @@ CCommandLoginGenderMenu::CCommandLoginGenderMenu(string menuOption)
 void CCommandLoginGenderMenu::execute()
 {
 	ELoginGenderMenuOption eRes = CGameCockpit::instance()->validateGenderMenu(m_socketKey, m_menuOption);
-	string message = "\r\n";
+	CAnsiString message;
+	message.resetFormat();
+	message += "\r\n";
+	message.setForegroundColor(Types::EANSICOLOR_CYAN);
 	switch (eRes)
 	{
 	case ELOGINGENDERMENUOPTION_SELECT_FEMALE:
@@ -25,8 +28,9 @@ void CCommandLoginGenderMenu::execute()
 		break;
 	default:
 		message += "Option is not available!\r\n> Try again: ";
+		message.setBackgroundColor(Types::EANSICOLOR_RED);
 		break;
 	}
 
-	m_socket->write(message.c_str(), message.length());
+	m_socket->write(message.getData().c_str(), message.getData().length());
 }

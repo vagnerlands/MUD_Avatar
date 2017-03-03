@@ -11,23 +11,23 @@ CSocketHolder::~CSocketHolder()
 	// Iterate and print keys and values of unordered_map
 	for (const auto& socketItem : m_sockedDB) {
 		cout << "Forcing connect Key:[" << socketItem.first << "] to close !" << endl;
-		CWinSocket* condemed = (CWinSocket*)socketItem.second;
+		ISocket* condemed = socketItem.second;
 		delete condemed;
 		condemed = NULL;
 	}
 }
 
 void 
-CSocketHolder::addSocket(string user, CWinSocket* userSocket)
+CSocketHolder::addSocket(string user, ISocket* userSocket)
 {
 	// protects with MUTEX
 	CWinThread::instance()->mutexLock();
 	// check if this ip is already registered
-	unordered_map<string, CWinSocket*>::const_iterator checkIterator = m_sockedDB.find(user);
+	unordered_map<string, ISocket*>::const_iterator checkIterator = m_sockedDB.find(user);
 	if (checkIterator != m_sockedDB.end())
 	{
 		cout << "Duplicated connection from Key:[" << checkIterator->first << "] - first connection will be closed!" << endl;
-		CWinSocket* condemed = (CWinSocket*)checkIterator->second;
+		ISocket* condemed = checkIterator->second;
 		delete condemed;
 		condemed = NULL;
 		m_sockedDB.erase(user);
@@ -71,11 +71,8 @@ CSocketHolder::readIncomingMsgs()
 		// error code - lost connection;
 		if (iRes == 100)
 		{
+			socketItem.second->recycle();
 			cout << "ERROR READING " << socketItem.first << " Code " << iRes << endl;
-			m_condemedSockets.push_back(socketItem.first);
-			CWinSocket* condemed = (CWinSocket*)socketItem.second;
-			delete condemed;
-			condemed = NULL;
 		}
 	}
 
@@ -86,10 +83,14 @@ void CSocketHolder::executeCommands()
 	// intentionally - only one command per socket in this cycle will be parsed
 	// we don't want cheaters to take advantage
 	for (const auto& socketItem : m_sockedDB) {
-		TByte tempBuf[1025];
-		TInt32 bufSize;
 		// general 
-		CICommand *newCommand = socketItem.second->CreateCommand();
+		CICommand *newCommand = NULL;
+		// checks if null before using (memory violation)
+		if (socketItem.second != NULL)
+		{
+			newCommand = socketItem.second->CreateCommand();
+		}
+
 		if (newCommand != NULL)
 		{
 			// for consult - if needed
@@ -115,6 +116,19 @@ CSocketHolder::removeCondemedSockets()
 	// protects with MUTEX
 	CWinThread::instance()->mutexLock();
 
+	for (const auto& socketItem : m_sockedDB) {
+		if (socketItem.second != NULL)
+		{
+			if (socketItem.second->recycleStatus())
+			{
+				m_condemedSockets.push_back(socketItem.first);
+				ISocket* condemed = socketItem.second;
+				delete condemed;
+				condemed = NULL;
+			}
+		}
+	}
+
 	for (std::list<string>::iterator it = m_condemedSockets.begin(); it != m_condemedSockets.end(); ++it)
 	{
 		m_sockedDB.erase(*it);
@@ -131,24 +145,49 @@ CSocketHolder::removeCondemedSockets()
 void 
 CSocketHolder::onConnectionEvent()
 {
-	CWinSocket* inSocket = new CWinSocket();
+	#ifdef _WIN_
+	ISocket* inSocket = new CWinSocket();
+    #else
+	// not implemented for other platforms
+	ISocket* inSocket = NULL;
+	#endif
 
+	if (inSocket == NULL)
+	{
+		cout << "<!> Failed to allocate Socket!" << endl;
+		return;
+	}
 	// blocking action - stays here till a new user connects
 	inSocket->startListenSocket();
 
-	string welcomeMsg = "Welcome do Avatar MUD\r\n";
-	welcomeMsg +=       "---------------------\r\n";
+	CAnsiString welcomeMsg; 
+	// reset whatever was set previously
+	welcomeMsg.resetFormat();
+	welcomeMsg.setForegroundColor(Types::EANSICOLOR_CYAN);
+	welcomeMsg += "Welcome do Avatar MUD\r\n";
+	welcomeMsg.setForegroundColor(Types::EANSICOLOR_WHITE);
+	welcomeMsg += "---------------------\r\n";
+	welcomeMsg.setForegroundColor(Types::EANSICOLOR_MAGENTA);
     welcomeMsg += "   ___            __             __  _____  _____ \r\n";
     welcomeMsg += "  / _ |_  _____ _/ /____ _____  /  |/  / / / / _ \\\r\n";
     welcomeMsg += " / __ | |/ / _ `/ __/ _ `/ __/ / /|_/ / /_/ / // /\r\n";
     welcomeMsg += "/_/ |_|___/\\_,_/\\__/\\_,_/_/   /_/  /_/\\____/____/ \r\n";
     welcomeMsg += "                                                  \r\n";
-                                                  
-    welcomeMsg += "---------------------\r\n";
-    welcomeMsg += "Developed by Avatar - avatarch@gmail.com \r\n";
+    
+	welcomeMsg.setForegroundColor(Types::EANSICOLOR_WHITE);
+    welcomeMsg += "\n---------------------\r\n";
+	welcomeMsg.setForegroundColor(Types::EANSICOLOR_CYAN);
+	welcomeMsg += "Developed by Avatar - ";
+	welcomeMsg.setBackgroundColor(Types::EANSICOLOR_BLUE);
+	welcomeMsg.setForegroundColor(Types::EANSICOLOR_YELLOW);
+	welcomeMsg.setBold();
+	welcomeMsg += "avatarch@gmail.com \r\n";
+	welcomeMsg.resetFormat();
 
+	welcomeMsg.setForegroundColor(Types::EANSICOLOR_CYAN);
 	welcomeMsg += "\r\n> Please, insert your user: ";
-	inSocket->write(welcomeMsg.c_str(), welcomeMsg.length());
+	welcomeMsg.setBackgroundColor(Types::EANSICOLOR_RED);
+	inSocket->write(welcomeMsg.getData().c_str(), welcomeMsg.getData().length());
 
 	// invalid socket
 	if (strcmp(inSocket->getClientIP(), "205.205.205.205") != 0) 

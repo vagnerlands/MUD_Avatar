@@ -18,13 +18,16 @@
 #include "CCommandLoginRaceMenu.h"
 #include "CCommandLoginGenderMenu.h"
 #include "CICommand.h"
+#include "ISocket.h"
+
+#include "CAnsiString.h"
 
 // Need to link with Ws2_32.lib
 #pragma comment (lib, "Ws2_32.lib")
 
 using namespace Types;
 
-class CWinSocket {
+class CWinSocket : public ISocket {
 public:
 
 	CWinSocket();

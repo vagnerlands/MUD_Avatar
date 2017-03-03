@@ -105,6 +105,11 @@ ELoginRaceMenuOption CGameCockpit::validateRaceMenu(string socketKey, string men
 	return retVal;
 }
 
+void CGameCockpit::setClass(string socketKey, ECharacterClass charClass)
+{
+	// remove it
+}
+
 ELoginGenderMenuOption CGameCockpit::validateGenderMenu(string socketKey, string menuOption)
 {
 	ELoginGenderMenuOption retVal = ELOGINGENDERMENUOPTION_SELECT_GENDER_INVALID;
