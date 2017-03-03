@@ -26,9 +26,6 @@
     <ClInclude Include="Application\CCommonTypes.h">
       <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="Application\CEngine.h">
-      <Filter>Application</Filter>
-    </ClInclude>
     <ClInclude Include="Application\CSocketHolder.h">
       <Filter>Application</Filter>
     </ClInclude>
@@ -77,13 +74,13 @@
     <ClInclude Include="Application\ISocket.h">
       <Filter>Application</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\CEngine.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\CEngine.cpp">
-      <Filter>Application</Filter>
     </ClCompile>
     <ClCompile Include="Application\CSocketHolder.cpp">
       <Filter>Application</Filter>
@@ -114,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="Application\CAnsiString.cpp">
       <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CEngine.cpp">
+      <Filter>Logic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

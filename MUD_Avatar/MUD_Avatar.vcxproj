@@ -148,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\CCommonTypes.h" />
-    <ClInclude Include="Application\CEngine.h" />
     <ClInclude Include="Application\CAnsiString.h" />
     <ClInclude Include="Application\CRoom.h" />
     <ClInclude Include="Application\CSocketHolder.h" />
@@ -163,11 +162,11 @@
     <ClInclude Include="Commands\CCommandLoginRaceMenu.h" />
     <ClInclude Include="Commands\CCommandLoginUserName.h" />
     <ClInclude Include="Commands\CICommand.h" />
+    <ClInclude Include="Logic\CEngine.h" />
     <ClInclude Include="Logic\CGameCockpit.h" />
     <ClInclude Include="Logic\CPerson.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application\CEngine.cpp" />
     <ClCompile Include="Application\CAnsiString.cpp" />
     <ClCompile Include="Application\CSocketHolder.cpp" />
     <ClCompile Include="Application\CWinSocket.cpp" />
@@ -177,6 +176,7 @@
     <ClCompile Include="Commands\CCommandLoginMenu.cpp" />
     <ClCompile Include="Commands\CCommandLoginRaceMenu.cpp" />
     <ClCompile Include="Commands\CCommandLoginUserName.cpp" />
+    <ClCompile Include="Logic\CEngine.cpp" />
     <ClCompile Include="Logic\CGameCockpit.cpp" />
     <ClCompile Include="mainWin.cpp" />
   </ItemGroup>

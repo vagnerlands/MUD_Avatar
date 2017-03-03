@@ -27,6 +27,11 @@ CSocketHolder::addSocket(string user, ISocket* userSocket)
 	if (checkIterator != m_sockedDB.end())
 	{
 		cout << "Duplicated connection from Key:[" << checkIterator->first << "] - first connection will be closed!" << endl;
+		CAnsiString quitMsg;
+		quitMsg.resetFormat();
+		quitMsg.setForegroundColor(EANSICOLOR_YELLOW);
+		quitMsg += "\n\r\n\rDuplicated connection detected, your connection is being halted!";
+		checkIterator->second->write(quitMsg.getData().c_str(), quitMsg.size());
 		ISocket* condemed = checkIterator->second;
 		delete condemed;
 		condemed = NULL;
@@ -46,18 +51,6 @@ CSocketHolder::dropSocket(string user)
 	bool retVal = m_sockedDB.erase(user);
 
 	return retVal;
-}
-
-string 
-CSocketHolder::read()
-{
-	return "a";
-}
-
-void 
-CSocketHolder::write(string data)
-{
-
 }
 
 void
@@ -111,30 +104,30 @@ void CSocketHolder::executeCommands()
 TInt32 
 CSocketHolder::removeCondemedSockets()
 {
-	TInt32 retVal = m_condemedSockets.size();
+	TInt32 retVal = 0;
 
 	// protects with MUTEX
 	CWinThread::instance()->mutexLock();
 
-	for (const auto& socketItem : m_sockedDB) {
-		if (socketItem.second != NULL)
+	for (auto socketItem = m_sockedDB.begin(); socketItem != m_sockedDB.end(); )
+	{
+	//for (const auto& socketItem : m_sockedDB) {
+		if (socketItem->second != NULL)
 		{
-			if (socketItem.second->recycleStatus())
+			if (socketItem->second->recycleStatus())
 			{
-				m_condemedSockets.push_back(socketItem.first);
-				ISocket* condemed = socketItem.second;
+				ISocket* condemed = socketItem->second;
 				delete condemed;
 				condemed = NULL;
+				// removes the item from the DS
+				m_sockedDB.erase(socketItem++);
+			} 
+			else
+			{
+				++socketItem;
 			}
 		}
 	}
-
-	for (std::list<string>::iterator it = m_condemedSockets.begin(); it != m_condemedSockets.end(); ++it)
-	{
-		m_sockedDB.erase(*it);
-	}
-
-	m_condemedSockets.clear();
 
 	// release MUTEX
 	CWinThread::instance()->mutexUnlock();

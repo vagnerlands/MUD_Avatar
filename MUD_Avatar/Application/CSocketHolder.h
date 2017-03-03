@@ -28,9 +28,6 @@ public:
 	void onConnectionEvent();
 	bool dropSocket(string user);
 
-	string read();
-	void write(string data);
-
 	void readIncomingMsgs();
 
 	void executeCommands();
@@ -41,9 +38,6 @@ private:
 	// Key == client IP
 	// Value == CWinSocket* object, including handle of the connection
 	unordered_map<string, ISocket*> m_sockedDB;
-
-	list<string> m_condemedSockets;
-
 };
 
 #endif //_CCLIENTSOCKET_H_

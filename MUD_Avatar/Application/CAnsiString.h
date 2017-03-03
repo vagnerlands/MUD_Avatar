@@ -1,5 +1,5 @@
-#ifndef _CRICHSTRING_H_
-#define _CRICHSTRING_H_
+#ifndef _CANSISTRING_H_
+#define _CANSISTRING_H_
 
 #include <string>
 #include "CCommonTypes.h"
@@ -15,6 +15,8 @@ public:
 	CAnsiString(string input);
 
 	string getData();
+
+	TInt32 size();
 
 	// removes all format definitions
 	void resetFormat();
@@ -52,4 +54,10 @@ CAnsiString::getData()
 	return m_data;
 }
 
-#endif
+inline TInt32 
+CAnsiString::size()
+{
+	return m_data.size();
+}
+
+#endif //_CANSISTRING_H_
