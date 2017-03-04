@@ -14,10 +14,6 @@ public:
 	static CGameCockpit* instance();
 
 	bool validateUserLogin(string socketKey, string login, bool* isCharacterCreated);
-	ELoginMenuOption validateMenu(string socketKey, string menuOption);
-	ELoginClassMenuOption validateClassMenu(string socketKey, string menuOption);
-	ELoginGenderMenuOption validateGenderMenu(string socketKey, string menuOption);
-	ELoginRaceMenuOption CGameCockpit::validateRaceMenu(string socketKey, string menuOption);
 
 	void setClass(string socketKey, ECharacterClass charClass);
 

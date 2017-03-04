@@ -23,7 +23,7 @@ CEngine::~CEngine() {
 void 
 CEngine::connectionLoop()
 {
-	cout << "connectionLoop() " << endl;
+	cout << "Accepting new connection..." << endl;
 	m_socketServer.onConnectionEvent();
 }
 
@@ -73,7 +73,7 @@ CEngine::ignition()
 	// first thing ever - set "this" instance to the m_pInstance
 	instance();
 
-	// debug thread - to be moved to a proper place      
+	// creates a thread which will automatically start running  
 	CThreadHolder::instance()->registerThread("thSocketListener", ConnectionListener);
 	
 	// create as many callbacks as necessary to static functions

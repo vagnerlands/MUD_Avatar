@@ -7,7 +7,7 @@ CCommandLoginRaceMenu::CCommandLoginRaceMenu(string menuOption)
 
 void CCommandLoginRaceMenu::execute()
 {
-	ELoginRaceMenuOption eRes = CGameCockpit::instance()->validateRaceMenu(m_socketKey, m_menuOption);
+	ELoginRaceMenuOption eRes = validate(m_menuOption);
 	CAnsiString message;
 	message.resetFormat();
 	message += "\r\n";
@@ -41,4 +41,32 @@ void CCommandLoginRaceMenu::execute()
 	}
 
 	m_socket->write(message.getData().c_str(), message.getData().length());
+}
+
+ELoginRaceMenuOption 
+CCommandLoginRaceMenu::validate(string menuOption)
+{
+	ELoginRaceMenuOption retVal = ELOGINRACEMENUOPTION_SELECT_INVALID;
+	if (menuOption == "1")
+	{
+		retVal = ELOGINRACEMENUOPTION_SELECT_HUMAN;
+	}
+	else if (menuOption == "2")
+	{
+		retVal = ELOGINRACEMENUOPTION_SELECT_ELF;
+	}
+	else if (menuOption == "3")
+	{
+		retVal = ELOGINRACEMENUOPTION_SELECT_ORC;
+	}
+	else if (menuOption == "4")
+	{
+		retVal = ELOGINRACEMENUOPTION_SELECT_DWARF;
+	}
+	else if ((menuOption == "r") || (menuOption == "R"))
+	{
+		retVal = ELOGINRACEMENUOPTION_SELECT_RETURN_TO_MAIN_MENU;
+	}
+	return retVal;
+
 }

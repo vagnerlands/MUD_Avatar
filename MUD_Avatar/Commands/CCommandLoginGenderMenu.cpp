@@ -7,7 +7,7 @@ CCommandLoginGenderMenu::CCommandLoginGenderMenu(string menuOption)
 
 void CCommandLoginGenderMenu::execute()
 {
-	ELoginGenderMenuOption eRes = CGameCockpit::instance()->validateGenderMenu(m_socketKey, m_menuOption);
+	ELoginGenderMenuOption eRes = validate(m_menuOption);
 	CAnsiString message;
 	message.resetFormat();
 	message += "\r\n";
@@ -33,4 +33,24 @@ void CCommandLoginGenderMenu::execute()
 	}
 
 	m_socket->write(message.getData().c_str(), message.getData().length());
+}
+
+ELoginGenderMenuOption CCommandLoginGenderMenu::validate(string menuOption)
+{
+	ELoginGenderMenuOption retVal = ELOGINGENDERMENUOPTION_SELECT_GENDER_INVALID;
+
+	if ((menuOption == "M") || (menuOption == "m"))
+	{
+		retVal = ELOGINGENDERMENUOPTION_SELECT_MALE;
+	}
+	else if ((menuOption == "F") || (menuOption == "f"))
+	{
+		retVal = ELOGINGENDERMENUOPTION_SELECT_FEMALE;
+	}
+	else if ((menuOption == "r") || (menuOption == "R"))
+	{
+		retVal = ELOGINGENDERMENUOPTION_SELECT_RETURN_TO_MAIN_MENU;
+	}
+
+	return retVal;
 }
