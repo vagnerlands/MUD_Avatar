@@ -1,9 +1,22 @@
 #include "CSocketHolder.h"
 #include "CThreadHolder.h"
+#ifdef _WIN_
+#include "CWinMutex.h"
+#endif
 
-CSocketHolder::CSocketHolder()
+CSocketHolder::CSocketHolder() : m_sockedDBMutex(NULL)
 {
-	// empty
+#ifdef _WIN_
+	m_sockedDBMutex = new CWinMutex();
+#endif
+
+	if (m_sockedDBMutex == NULL)
+	{
+		cout << "<!> Critical issue while allocating resources, program is being terminated!" << endl;
+		exit(1);
+	}
+
+	m_sockedDBMutex->createMutex("socketDB");
 }
 
 CSocketHolder::~CSocketHolder()
@@ -22,7 +35,7 @@ void
 CSocketHolder::addSocket(string user, ISocket* userSocket)
 {
 	// protects with MUTEX
-	CThreadHolder::instance()->mutexLockThread("thSocketListener");
+	m_sockedDBMutex->mutexLock();
 	// check if this ip is already registered
 	unordered_map<string, ISocket*>::const_iterator checkIterator = m_sockedDB.find(user);
 	if (checkIterator != m_sockedDB.end())
@@ -41,7 +54,7 @@ CSocketHolder::addSocket(string user, ISocket* userSocket)
 	// creates a pair for user/userSocket
 	m_sockedDB.insert({ user, userSocket });
 	// Releases MUTEX
-	CThreadHolder::instance()->mutexUnlockThread("thSocketListener");
+	m_sockedDBMutex->mutexUnlock();
 }
 
 bool
@@ -97,8 +110,6 @@ void CSocketHolder::executeCommands()
 			delete newCommand;
 			newCommand = NULL;
 		}
-
-		// must decide what to do with iRes
 	}
 }
 
@@ -108,7 +119,7 @@ CSocketHolder::removeCondemedSockets()
 	TInt32 retVal = 0;
 
 	// protects with MUTEX
-	CThreadHolder::instance()->mutexLockThread("thSocketListener");
+	m_sockedDBMutex->mutexLock();
 
 	for (auto socketItem = m_sockedDB.begin(); socketItem != m_sockedDB.end(); )
 	{
@@ -131,7 +142,7 @@ CSocketHolder::removeCondemedSockets()
 	}
 
 	// release MUTEX
-	CThreadHolder::instance()->mutexUnlockThread("thSocketListener");
+	m_sockedDBMutex->mutexUnlock();
 
 	return retVal;
 }

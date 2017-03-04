@@ -15,26 +15,6 @@ CThreadHolder::instance()
 }
 
 void 
-CThreadHolder::mutexLockThread(string threadId)
-{
-	unordered_map<string, IThread*>::iterator threadInterface = m_threadMap.find(threadId);
-	if (threadInterface != m_threadMap.end())
-	{
-		threadInterface->second->mutexLock();
-	}
-}
-
-void 
-CThreadHolder::mutexUnlockThread(string threadId)
-{
-	unordered_map<string, IThread*>::iterator threadInterface = m_threadMap.find(threadId);
-	if (threadInterface != m_threadMap.end())
-	{
-		threadInterface->second->mutexUnlock();
-	}
-}
-
-void 
 CThreadHolder::destroyThread(string threadId)
 {
 	unordered_map<string, IThread*>::iterator threadInterface = m_threadMap.find(threadId);

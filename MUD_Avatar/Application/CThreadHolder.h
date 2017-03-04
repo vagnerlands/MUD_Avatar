@@ -13,8 +13,6 @@ using namespace std;
 class CThreadHolder {
 public:
 	static CThreadHolder* instance();
-	void mutexLockThread(string threadId);
-	void mutexUnlockThread(string threadId);
 	void destroyThread(string threadId);
 	void registerThread(string thName, void* thEntry);
 private:

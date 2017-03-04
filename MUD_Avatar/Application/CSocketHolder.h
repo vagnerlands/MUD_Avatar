@@ -12,6 +12,7 @@
 #include "CCommandLoginUserName.h"
 #include "CAnsiString.h"
 #include "ISocket.h"
+#include "IMutex.h"
 
 
 // Need to link with Ws2_32.lib
@@ -38,6 +39,8 @@ private:
 	// Key == client IP
 	// Value == CWinSocket* object, including handle of the connection
 	unordered_map<string, ISocket*> m_sockedDB;
+	// mutex for m_socketDB
+	IMutex* m_sockedDBMutex;
 };
 
 #endif //_CCLIENTSOCKET_H_

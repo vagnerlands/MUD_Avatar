@@ -17,8 +17,6 @@ public:
 		// empty - should be reinplemented by derived class
 	}
 	virtual void createThread(string thName, void* thEntry) = 0;
-	virtual void mutexLock() = 0;
-	virtual void mutexUnlock() = 0;
 	virtual void destroy() = 0;
 };
 

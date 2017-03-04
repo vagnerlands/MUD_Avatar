@@ -83,6 +83,12 @@
     <ClInclude Include="Application\CThreadHolder.h">
       <Filter>Application</Filter>
     </ClInclude>
+    <ClInclude Include="Application\IMutex.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CWinMutex.h">
+      <Filter>Application</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin.cpp">
@@ -122,6 +128,9 @@
       <Filter>Logic</Filter>
     </ClCompile>
     <ClCompile Include="Application\CThreadHolder.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CWinMutex.cpp">
       <Filter>Application</Filter>
     </ClCompile>
   </ItemGroup>
