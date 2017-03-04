@@ -1,4 +1,5 @@
 #include "CSocketHolder.h"
+#include "CThreadHolder.h"
 
 CSocketHolder::CSocketHolder()
 {
@@ -21,7 +22,7 @@ void
 CSocketHolder::addSocket(string user, ISocket* userSocket)
 {
 	// protects with MUTEX
-	CWinThread::instance()->mutexLock();
+	CThreadHolder::instance()->mutexLockThread("thSocketListener");
 	// check if this ip is already registered
 	unordered_map<string, ISocket*>::const_iterator checkIterator = m_sockedDB.find(user);
 	if (checkIterator != m_sockedDB.end())
@@ -40,7 +41,7 @@ CSocketHolder::addSocket(string user, ISocket* userSocket)
 	// creates a pair for user/userSocket
 	m_sockedDB.insert({ user, userSocket });
 	// Releases MUTEX
-	CWinThread::instance()->mutexUnlock();
+	CThreadHolder::instance()->mutexUnlockThread("thSocketListener");
 }
 
 bool
@@ -107,7 +108,7 @@ CSocketHolder::removeCondemedSockets()
 	TInt32 retVal = 0;
 
 	// protects with MUTEX
-	CWinThread::instance()->mutexLock();
+	CThreadHolder::instance()->mutexLockThread("thSocketListener");
 
 	for (auto socketItem = m_sockedDB.begin(); socketItem != m_sockedDB.end(); )
 	{
@@ -130,7 +131,7 @@ CSocketHolder::removeCondemedSockets()
 	}
 
 	// release MUTEX
-	CWinThread::instance()->mutexUnlock();
+	CThreadHolder::instance()->mutexUnlockThread("thSocketListener");
 
 	return retVal;
 }

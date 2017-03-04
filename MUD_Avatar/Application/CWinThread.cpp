@@ -1,7 +1,5 @@
 #include "CWinThread.h"
 
-CWinThread* CWinThread::s_pInstance = NULL;
-
 CWinThread::~CWinThread()
 {
 	// release all handles
@@ -14,18 +12,7 @@ CWinThread::CWinThread()
 	// empty implementation
 }
 
-CWinThread* 
-CWinThread::instance()
-{
-	if (s_pInstance == NULL)
-	{
-		s_pInstance = new CWinThread();
-	}
-
-	return s_pInstance;
-}
-
-void CWinThread::createThread(string thName, LPTHREAD_START_ROUTINE thEntry)
+void CWinThread::createThread(string thName, void* thEntry)
 {
 	m_mutexHandle = CreateMutex(
 		NULL,              // default security attributes
@@ -37,7 +24,7 @@ void CWinThread::createThread(string thName, LPTHREAD_START_ROUTINE thEntry)
 		cout << "CreateMutex error: " << GetLastError() << endl;
 	}
 
-	m_threadHandle = CreateThread(0, 0, thEntry, &m_counter, 0x00000000, &m_threadID);
+	m_threadHandle = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)thEntry, &m_counter, 0x00000000, &m_threadID);
 	if (m_mutexHandle == NULL)
 	{
 		cout << "CreateThread error: " << GetLastError() << endl;
@@ -82,6 +69,5 @@ CWinThread::mutexUnlock()
 
 void CWinThread::destroy()
 {
-	delete s_pInstance;
-	s_pInstance = NULL;
+	mutexUnlock();
 }

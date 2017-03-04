@@ -1,4 +1,5 @@
 #include "CEngine.h"
+#include "CThreadHolder.h"
 #include <iostream>
 
 using namespace std;
@@ -73,7 +74,7 @@ CEngine::ignition()
 	instance();
 
 	// debug thread - to be moved to a proper place      
-	CWinThread::instance()->createThread("thSocketListener", ConnectionListener);
+	CThreadHolder::instance()->registerThread("thSocketListener", ConnectionListener);
 	
 	// create as many callbacks as necessary to static functions
 	// static functions (wrapper) shall call the respective 
@@ -81,7 +82,7 @@ CEngine::ignition()
 	RunWrap();
 
 	// releases the <listening> thread
-	CWinThread::instance()->destroy();
+	CThreadHolder::instance()->destroyThread("thSocketListener");
 
 	return ;
 }

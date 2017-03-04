@@ -77,6 +77,12 @@
     <ClInclude Include="Logic\CEngine.h">
       <Filter>Logic</Filter>
     </ClInclude>
+    <ClInclude Include="Application\IThread.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CThreadHolder.h">
+      <Filter>Application</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin.cpp">
@@ -114,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="Logic\CEngine.cpp">
       <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CThreadHolder.cpp">
+      <Filter>Application</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

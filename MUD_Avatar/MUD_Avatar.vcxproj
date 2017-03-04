@@ -151,9 +151,11 @@
     <ClInclude Include="Application\CAnsiString.h" />
     <ClInclude Include="Application\CRoom.h" />
     <ClInclude Include="Application\CSocketHolder.h" />
+    <ClInclude Include="Application\CThreadHolder.h" />
     <ClInclude Include="Application\CWinSocket.h" />
     <ClInclude Include="Application\CWinThread.h" />
     <ClInclude Include="Application\ISocket.h" />
+    <ClInclude Include="Application\IThread.h" />
     <ClInclude Include="CClassWarrior.h" />
     <ClInclude Include="CIClass.h" />
     <ClInclude Include="Commands\CCommandLoginClassMenu.h" />
@@ -169,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="Application\CAnsiString.cpp" />
     <ClCompile Include="Application\CSocketHolder.cpp" />
+    <ClCompile Include="Application\CThreadHolder.cpp" />
     <ClCompile Include="Application\CWinSocket.cpp" />
     <ClCompile Include="Application\CWinThread.cpp" />
     <ClCompile Include="Commands\CCommandLoginClassMenu.cpp" />
