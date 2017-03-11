@@ -1,5 +1,6 @@
 #include "CEngine.h"
 #include "CThreadHolder.h"
+#include "CEventManager.h"
 #include <iostream>
 
 using namespace std;
@@ -40,6 +41,9 @@ CEngine::execute()
 	// execute commands from Sockets
 	m_socketServer.executeCommands();
 
+	// runs periodic functions based on system events
+	CGameCockpit::instance()->run();
+
 	// remove all dead sockets
 	m_socketServer.removeCondemedSockets();
 }
@@ -72,6 +76,11 @@ CEngine::ignition()
 {
 	// first thing ever - set "this" instance to the m_pInstance
 	instance();
+
+	// initialize all singletons
+
+	// register event listeners
+	CEventManager::instance()->registerListener(EEVENTTYPE_FIRST, &CGameCockpit::ControllerMenuEventHandler);
 
 	// creates a thread which will automatically start running  
 	CThreadHolder::instance()->registerThread("thSocketListener", ConnectionListener);

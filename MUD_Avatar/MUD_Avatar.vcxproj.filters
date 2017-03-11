@@ -89,6 +89,18 @@
     <ClInclude Include="Application\CWinMutex.h">
       <Filter>Application</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\CEventManager.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\IEvent.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CControllerMenu.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CEventMenu.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWin.cpp">
@@ -132,6 +144,15 @@
     </ClCompile>
     <ClCompile Include="Application\CWinMutex.cpp">
       <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CEventManager.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CControllerMenu.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CEventMenu.cpp">
+      <Filter>Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

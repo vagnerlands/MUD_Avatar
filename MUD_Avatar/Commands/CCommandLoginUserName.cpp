@@ -1,10 +1,9 @@
 #include "CCommandLoginUserName.h"
-
+#include "CEventManager.h"
+#include "CEventMenu.h"
 
 CCommandLoginUserName::CCommandLoginUserName(string login)
 {
-	//m_object = object;
-	//m_method = method;
 	m_login = login;
 }
 
@@ -14,21 +13,15 @@ void CCommandLoginUserName::execute()
 	bool isCharacterCreated = false;
 	// validates given user
 	bool bRes = CGameCockpit::instance()->validateUserLogin(m_socketKey, m_login, &isCharacterCreated);
-	// user message
-	CAnsiString message;
-	message.resetFormat();
-	message += "\r\n";
-	message.setForegroundColor(Types::EANSICOLOR_CYAN);
-	if (bRes)
+	
+	CEventMenu* ev = NULL;
+	ev = new CEventMenu();
+
+	if (ev != NULL)
 	{
-		message += "\r\n> Login accepted!\r\n";
-		message += m_socket->setState(Types::ESOCKETSTATE_LOGIN_MENU);		
-	} 
-	else
-	{
-		message += "\r\n> Non existing user\r\n";
-		message += "\r\n> Please, insert your user: ";
-		message.setBackgroundColor(EANSICOLOR_RED);
+		ev->SetKey(m_socket);
+		ev->SetOption(static_cast<TInt32>(bRes));
+		ev->SetState(ESOCKETSTATE_LOGIN);
+		CEventManager::instance()->addEvent(ev);
 	}
-	m_socket->write(message.getData().c_str(), message.getData().length());
 }

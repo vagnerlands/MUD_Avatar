@@ -1,4 +1,5 @@
 #include "CGameCockpit.h"
+#include "CEventManager.h"
 
 CGameCockpit* CGameCockpit::s_pInstance = NULL;
 
@@ -32,6 +33,18 @@ CGameCockpit::validateUserLogin(string socketKey, string login, bool* isCharacte
 	return retVal;
 }
 
+void CGameCockpit::run()
+{
+	// core of the application - logic 
+
+	// notify all controllers with related events - according to CEventManager rules
+	CEventManager::instance()->notify();
+}
+
+void CGameCockpit::ControllerMenuEventHandler(IEvent* ev)
+{
+	s_pInstance->m_CtrlMenu.execute(ev);
+}
 
 void CGameCockpit::setClass(string socketKey, ECharacterClass charClass)
 {

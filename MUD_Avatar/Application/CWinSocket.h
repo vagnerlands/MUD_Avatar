@@ -60,6 +60,8 @@ public:
 
 	string setState(ESocketState nextState);
 
+	ESocketState getState();
+
 	// non used
 	void clearReadBuffer();
 	// non used
@@ -134,6 +136,12 @@ CWinSocket::getCommand()
 	}
 
 	return m_readBuffer;
+}
+
+inline ESocketState 
+CWinSocket::getState()
+{
+	return m_state;
 }
 
 

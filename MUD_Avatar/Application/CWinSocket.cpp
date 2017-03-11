@@ -251,60 +251,10 @@ CWinSocket::CreateCommand()
 
 string CWinSocket::setState(ESocketState nextState)
 {
-	// return string
-	CAnsiString retStr = "";
 	// should check validity before accepting
 	m_state = nextState;
 
-	switch (nextState)
-	{
-	case ESOCKETSTATE_LOGIN_MENU:
-		retStr += " MUD Avatar Menu:\r\n";
-		retStr += "-----------------\r\n";
-		retStr += "\r\n [1] Create new character";
-		retStr += "\r\n [2] Start GAME";
-		retStr += "\r\n [3] Leave the game";
-		retStr += "\r\n> Choose: ";
-		retStr.setBackgroundColor(Types::EANSICOLOR_RED);
-		break;
-	case ESOCKETSTATE_CREATE_NEW_CHAR_GENDER:
-		retStr += "\r\nWhat is your gender: ";
-		retStr += "\r\n [M] Male ";
-		retStr += "\r\n [F] Female ";
-		retStr += "\r\n [r] Return to Main Menu \r\n ";
-		retStr += "\r\n > Choose: ";
-		retStr.setBackgroundColor(Types::EANSICOLOR_RED);
-		break;
-	case ESOCKETSTATE_CREATE_NEW_CHAR_CLASS:
-		retStr += "\r\nSelect one of the available classes:";
-		retStr += "\r\n[1] Warrior";
-		retStr += "\r\n[2] Mage";
-		retStr += "\r\n[3] Paladin";
-		retStr += "\r\n[4] Ninja";
-		retStr += "\r\n[r] Return to Main Menu \r\n";
-		retStr += "\r\n> Choose: ";
-		retStr.setBackgroundColor(Types::EANSICOLOR_RED);
-		break;
-	case ESOCKETSTATE_CREATE_NEW_CHAR_RACE:
-		retStr += "\r\nWhat will be your race: ";
-		retStr += "\r\n [1] Human ";
-		retStr += "\r\n [2] Elf ";
-		retStr += "\r\n [3] Orc ";
-		retStr += "\r\n [4] Dwarf ";
-		retStr += "\r\n [r] Return to Main Menu \r\n";
-		retStr += "\r\n> Choose: ";
-		retStr.setBackgroundColor(Types::EANSICOLOR_RED);
-		break;
-	case ESOCKETSTATE_IN_GAME:
-		retStr.setBold();
-		retStr.setForegroundColor(Types::EANSICOLOR_YELLOW);
-		retStr += "\r\nThe game will start now...\r\n";
-		break;
-	default:
-		retStr = "unknown option";
-		break;
-	}
+	return "";
 
-	return retStr.getData();
 }
 

@@ -1,4 +1,6 @@
 #include "CCommandLoginMenu.h"
+#include "CEventManager.h"
+#include "CEventMenu.h"
 
 CCommandLoginMenu::CCommandLoginMenu(string menuOption)
 {
@@ -8,35 +10,21 @@ CCommandLoginMenu::CCommandLoginMenu(string menuOption)
 void CCommandLoginMenu::execute()
 {
 	ELoginMenuOption eRes = validate(m_menuOption);
-	CAnsiString message;
-	message.resetFormat();
-	message += "\r\n";
-	message.setForegroundColor(Types::EANSICOLOR_CYAN);
-	switch (eRes) 
+	CEventMenu* ev = NULL;
+	ev = new CEventMenu();
+	
+	if (ev != NULL)
 	{
-		case ELOGINMENUOPTION_CREATE_NEW_CHARACTER:
-			message += m_socket->setState(ESOCKETSTATE_CREATE_NEW_CHAR_CLASS);
-			break;
-		case ELOGINMENUOPTION_START_GAME:
-			message += "Entering the game...\r\n\r\n";
-			message += m_socket->setState(ESOCKETSTATE_IN_GAME);
-			break;
-		case ELOGINMENUOPTION_LEAVE_GAME:
-			message += "Goodbye...\r\n";
-			m_socket->write(message.getData().c_str(), message.getData().length());
-			//m_socket->closeSocket();
-			m_socket->recycle();
-			break;
-		default:			
-			message += "Option is not available!\r\n> Choose: ";
-			message.setBackgroundColor(Types::EANSICOLOR_RED);
-			break;
+		ev->SetOption(static_cast<TInt32>(eRes));
+		ev->SetKey(m_socket);
+		ev->SetState(ESOCKETSTATE_LOGIN_MENU);
+		CEventManager::instance()->addEvent(ev);
 	}
-		
-	if (m_socket != NULL)
-	{
-		m_socket->write(message.getData().c_str(), message.getData().length());
-	}
+
+	//if (m_socket != NULL)
+	//{
+	//	m_socket->write(message.getData().c_str(), message.getData().length());
+	//}
 }
 
 ELoginMenuOption

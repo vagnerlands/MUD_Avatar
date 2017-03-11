@@ -1,4 +1,6 @@
 #include "CCommandLoginGenderMenu.h"
+#include "CEventManager.h"
+#include "CEventMenu.h"
 
 CCommandLoginGenderMenu::CCommandLoginGenderMenu(string menuOption)
 {
@@ -8,31 +10,17 @@ CCommandLoginGenderMenu::CCommandLoginGenderMenu(string menuOption)
 void CCommandLoginGenderMenu::execute()
 {
 	ELoginGenderMenuOption eRes = validate(m_menuOption);
-	CAnsiString message;
-	message.resetFormat();
-	message += "\r\n";
-	message.setForegroundColor(Types::EANSICOLOR_CYAN);
-	switch (eRes)
-	{
-	case ELOGINGENDERMENUOPTION_SELECT_FEMALE:
-		message += "\r\nOk Milady!";
-		message += m_socket->setState(ESOCKETSTATE_CREATE_NEW_CHAR_RACE);
-		break;
-	case ELOGINGENDERMENUOPTION_SELECT_MALE:
-		message += "\r\nOk Sir!";
-		message += m_socket->setState(ESOCKETSTATE_CREATE_NEW_CHAR_RACE);
-		break;
-	case ELOGINGENDERMENUOPTION_SELECT_RETURN_TO_MAIN_MENU:
-		message += "\r\n...\r\n";
-		message += m_socket->setState(ESOCKETSTATE_LOGIN_MENU);
-		break;
-	default:
-		message += "Option is not available!\r\n> Try again: ";
-		message.setBackgroundColor(Types::EANSICOLOR_RED);
-		break;
-	}
 
-	m_socket->write(message.getData().c_str(), message.getData().length());
+	CEventMenu* ev = NULL;
+	ev = new CEventMenu();
+
+	if (ev != NULL)
+	{
+		ev->SetKey(m_socket);
+		ev->SetOption(static_cast<TInt32>(eRes));
+		ev->SetState(ESOCKETSTATE_CREATE_NEW_CHAR_GENDER);
+		CEventManager::instance()->addEvent(ev);
+	}
 }
 
 ELoginGenderMenuOption CCommandLoginGenderMenu::validate(string menuOption)

@@ -9,7 +9,11 @@ using namespace std;
 class CICommand {
 public:
 	//CICommand();
-	//virtual ~CICommand() = 0;
+	
+	virtual ~CICommand()
+	{
+		// if derived class is declared function, then this one won't be called...
+	}
 	virtual void execute() = 0;
 
 	// set the key - to perform matching later on in the sockets
